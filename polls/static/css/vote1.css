@@ -1,0 +1,59 @@
+body {
+  font-family: Arial, sans-serif;
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)
+    ),
+    url("../image/bg2.jpg");
+  background-size: cover; /* Adjusted to cover the entire background */
+  color: #000;
+  margin: 0;
+  padding: 0;
+  position: relative; /* Required for absolute positioning of overlay */
+}
+
+.header a {
+  display: inline-block;
+  padding: 12px 24px; /* Adjust padding as needed */
+  margin-left: 1230px;
+  background-color: #f9a825; /* Yellow color example, you can replace with your preferred color */
+  color: #000000; /* White text color */
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease-in-out; /* Smooth transition */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Button shadow */
+}
+
+.header a:hover {
+  background-color: #ffd54f; /* Light yellow color on hover */
+}
+
+h1 {
+  text-align: center; /* Center-align the heading */
+  font-size: 60px;
+  font-weight: 5000;
+  margin-top: 170px; /* Add some top margin */
+  color: #ffb300; /* Dark gray heading color */
+}
+
+a {
+  display: block; /* Display links as block elements */
+  width: 200px; /* Set a fixed width for the links */
+  margin: 20px auto; /* Center the links horizontally with some vertical margin */
+  padding: 25px 20px; /* Add padding to the links */
+  text-align: center; /* Center-align the text within links */
+  text-decoration: none; /* Remove underline from links */
+  color: #000000; /* White text color for links */
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #ffcc00; /* Blue background color for links */
+  border-radius: 5px; /* Rounded corners for links */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+a:hover {
+  background-color: #fade09; /* Darker blue on hover */
+  transform: scale(1.1); /* Added hover animation */
+}

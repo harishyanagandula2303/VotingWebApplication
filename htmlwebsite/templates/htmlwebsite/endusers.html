@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <title>End User Registration</title>
+    <link rel="stylesheet" href="{% static 'css/endusers.css' %}" />
+  </head>
+  <body>
+    <form
+      action="{% url 'htmlwebsite:enduser_registration' %}"
+      method="POST"
+      class="end-form"
+    >
+      {% csrf_token %}
+      <h1>Enter Details to Proceed</h1>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="unique_id">Unique ID:</label>
+        <input type="text" id="unique_id" name="unique_id" required />
+      </div>
+
+      <div class="form-group">
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" id="mobile" name="mobile" required />
+      </div>
+
+      <input type="submit" value="Submit" class="btn-submit" />
+    </form>
+  </body>
+</html>

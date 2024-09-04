@@ -1,0 +1,134 @@
+<html>
+  <head>
+    {% load static %}
+    <title>Vote</title>
+    <style>
+      /* Reset default browser styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("{% static 'image/bg10.jpeg' %}");
+        background-size: cover;
+        color: #000;
+        margin: 0;
+        padding: 0;
+        position: relative; /* Required for absolute positioning of overlay */
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 65px; /* Adjust height as needed */
+        background-color: #000000; /* Gradient color example, you can replace with your preferred color */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 3D shadow effect */
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .header img {
+        max-height: 50px; /* Maximum height for the logo image */
+        width: auto; /* Auto-adjust width to maintain aspect ratio */
+        margin-right: 20px; /* Adjust margin as needed */
+      }
+
+      /* Header styles */
+      h1 {
+        font-size: 28px;
+        margin-left: 15px;
+        margin-top: 200px;
+        margin-bottom: 20px;
+        color: ffc400;
+      }
+
+      form {
+        margin-left: 10px; /* Align form to the left */
+        background-color: #ffc400; /* Changed background color to white */
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 30%;
+      }
+
+      label {
+        display: inline-block;
+        margin-right: 10px;
+        color: black;
+        font-size: 16px;
+        font-weight: bold; /* Changed label text color to black */
+      }
+
+      input[type="radio"] {
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+
+      input[type="submit"] {
+        background-color: black;
+        color: ffc400;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 20px;
+      }
+
+      input[type="submit"]:hover {
+        transform: scale(1.1); /* Added hover animation */
+      }
+
+      /* Adjustments for better visibility and alignment */
+      label {
+        margin-bottom: 0; /* Removed margin bottom for labels */
+      }
+
+      /* Link styles */
+      a {
+        display: inline-block;
+        background-color: ffc400;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 10px;
+        margin-left: 10px; /* Added margin between buttons */
+      }
+
+      a:hover {
+        transform: scale(1.1); /* Added hover animation */
+      }
+    </style>
+  </head>
+  <div class="header">
+    <img src="{% static 'image/votinglogo.png' %}" alt="Logo" />
+  </div>
+  <body>
+    <h1>{{ question.question_text }}</h1>
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+      {% csrf_token %} {% for choice in question.choice_set.all %}
+      <input
+        type="radio"
+        id="choice{{ choice.id }}"
+        name="choice"
+        value="{{ choice.id }}"
+      />
+      <label for="choice{{ choice.id }}">{{ choice.choice_text }}</label><br />
+      {% endfor %}
+      <input type="submit" value="Vote" />
+    </form>
+    <a href="{% url 'polls:view_results_single' question.id %}">View Results</a>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Information</title>
+    <!-- Add any CSS links or stylesheets here -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: black; /* Changed background color to black */
+        color: yellow; /* Changed text color to yellow */
+        margin: 0;
+        padding: 0;
+        position: relative; /* Required for absolute positioning of overlay */
+      }
+
+      
+.header a {
+  display: inline-block;
+  padding: 12px 24px; /* Adjust padding as needed */
+  margin-top: 20px;
+  margin-left: 20px;
+  background-color: #f9a825; /* Yellow color example, you can replace with your preferred color */
+  color: #000000; /* White text color */
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease-in-out; /* Smooth transition */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Button shadow */
+}
+
+.header a:hover {
+  background-color: #ffd54f; /* Light yellow color on hover */
+}
+
+      h1 {
+        text-align: center; /* Center-align the heading */
+      }
+
+      a {
+        font-size: 16px;
+        font-weight: bold;
+        color: yellow; /* Link color in yellow */
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline; /* Underline on hover */
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid ffd54f; /* Yellow border for the table */
+      }
+
+      th,
+      td {
+        border: 1px solid yellow; /* Yellow border for table cells */
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #000; /* Background color for table header */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="quick-links">
+        <a href="{% url 'htmlwebsite:home' %}" id="signup-link">GoTo Home</a>
+        <a href="{% url 'htmlwebsite:user_info' %}">UserInFo</a>
+      </div>
+     
+    <h1>User's Information</h1>
+    
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Unique ID</th>
+          <th>Mobile Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in end_users %}
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.unique_id }}</td>
+          <td>{{ user.mobile }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!-- Add any JavaScript code if needed -->
+  </body>
+</html>

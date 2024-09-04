@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    {% comment %} python manage.py runserver {% endcomment %}
+    <div class="header">
+      <img src="{% static 'image/votinglogo.png' %}" alt="Logo" />
+
+      <div class="quick-links">
+        <a href="#" id="home-link">Home</a>
+        <a href="{%url 'htmlwebsite:login'%}" id="login-link">Login</a>
+        <a href="#" id="signup-link">Conduct Poll</a>
+      </div>
+    </div>
+
+    <div class="container" id="home-section">
+      <h1>Welcome to</h1>
+      <h1>Online Polling Website</h1>
+      {% comment %}
+      <p>We are happy to see you and go ahead by clicking the below button.</p>
+      {% endcomment %}<br />
+      <button onclick="navigateToEndUsers()" class="btn">Vote</button>
+    </div>
+
+    <div class="container" id="signup-section" style="display: none">
+      <h2>Signup to Conduct Poll</h2>
+      <form
+        action="{% url 'htmlwebsite:home' %}"
+        method="POST"
+        id="signup-form"
+      >
+        {% csrf_token %}
+        <div class="form-group">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email Here"
+            required
+          />
+        </div>
+        <!-- Other form fields here -->
+        <div class="form-group">
+          <input
+            type="text"
+            id="mobile"
+            name="mobile"
+            placeholder="Mobile Here"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="UserName Here"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password Here"
+            required
+          />
+        </div>
+
+        <input type="submit" value="Signup" />
+      </form>
+    </div>
+    <script>
+      document
+        .getElementById("home-link")
+        .addEventListener("click", function () {
+          document.getElementById("home-section").style.display = "block";
+          document.getElementById("signup-section").style.display = "none";
+          document.getElementById("login-section").style.display = "none";
+        });
+
+      document
+        .getElementById("signup-link")
+        .addEventListener("click", function () {
+          document.getElementById("home-section").style.display = "none";
+          document.getElementById("signup-section").style.display = "block";
+          document.getElementById("login-section").style.display = "none";
+          animateForm("#signup-section");
+        });
+
+      {% comment %} document
+        .getElementById("login-link")
+        .addEventListener("click", function () {
+          document.getElementById("home-section").style.display = "none";
+          document.getElementById("signup-section").style.display = "none";
+          document.getElementById("login-section").style.display = "block";
+          animateForm("#login-section");
+        }); {% endcomment %}
+
+      function animateForm(sectionId) {
+        const section = document.querySelector(sectionId);
+        const form = section.querySelector("form");
+        form.style.opacity = "0";
+        form.style.transform = "translateY(-20px)";
+        setTimeout(() => {
+          form.style.opacity = "1";
+          form.style.transform = "translateY(0)";
+        }, 100);
+      }
+      function navigateToEndUsers() {
+        window.location.href = "{% url 'htmlwebsite:endusers' %}";
+      }
+    </script>
+  </body>
+</html>

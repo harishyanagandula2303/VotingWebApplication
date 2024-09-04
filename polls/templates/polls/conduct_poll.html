@@ -1,0 +1,80 @@
+<html>
+  <head>
+    {% load static %}
+    <title>Conduct Poll</title>
+    <link rel="stylesheet" href="{% static 'css/conduct.css' %}" />
+  </head>
+  <body>
+    <div class="header">
+      <img src="{% static 'image/votinglogo.png' %}" alt="Logo" />
+
+      <div class="quick-links">
+        <a href="{% url 'polls:view_questions' %}">Back to Polls</a>
+      </div>
+    </div>
+    <div class="container">
+      <h1>Conduct Poll</h1>
+      <form method="post" action="{% url 'polls:conduct_poll' 1 %}">
+        {% csrf_token %}
+
+        <input
+          type="text"
+          id="question"
+          name="question"
+          placeholder="Type Poll Header"
+        />
+        <div id="choices"></div>
+        <div class="button-group">
+          <button type="submit" onclick="submitPoll()">Submit Poll</button>
+          <button type="button" onclick="addChoice()">Add Choice</button>
+        </div>
+      </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      var choiceCount = 1; // Track the number of choices
+
+      function addChoice() {
+        var newChoiceInput = document.createElement("input");
+        newChoiceInput.type = "text";
+        newChoiceInput.name = "choices[]";
+        newChoiceInput.required = true;
+
+        var choiceDiv = document.getElementById("choices");
+        choiceDiv.appendChild(document.createElement("br")); // Add line break
+        choiceDiv.appendChild(newChoiceInput);
+
+        choiceCount++; // Increment choice count
+      }
+
+      function submitPoll() {
+        var questionInput = document.getElementById("question").value;
+        var choices = [];
+        $("input[name='choices[]']").each(function () {
+          choices.push($(this).val());
+        });
+
+        if (questionInput.trim() !== "" && choices.length > 0) {
+          $.ajax({
+            type: "POST",
+            url: window.location.pathname,
+            data: {
+              csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+              question_text: questionInput,
+              choices: JSON.stringify(choices),
+            },
+            success: function (data) {
+              alert("Poll submitted successfully!");
+              window.location.href = "{% url 'polls:view_user' %}";
+            },
+            error: function (xhr, errmsg, err) {
+              console.log(xhr.status + ": " + xhr.responseText);
+            },
+          });
+        } else {
+          alert("Please enter a question and at least one choice.");
+        }
+      }
+    </script>
+  </body>
+</html>

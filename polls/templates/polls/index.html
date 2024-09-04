@@ -1,0 +1,21 @@
+<html>
+  <head>
+    {% load static %}
+    <title>Voting Project</title>
+    <link rel="stylesheet" href="{% static 'css/vote1.css' %}" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="quick-links">
+        <a href="{% url 'htmlwebsite:home' %}" id="signup-link">GoTo Home</a>
+      </div>
+    </div>
+    <h1>Welcome to Voting Project</h1>
+    <a href="{% url 'polls:view_questions' %}">View Polls</a><br />
+    {% comment %} <a href="{% url 'polls:conduct_poll' 1 %}">Conduct Poll</a
+    ><br />
+    <!-- Provide default question ID -->
+    {% endcomment %}
+    <a href="{% url 'polls:view_results' %}">View Results</a>
+  </body>
+</html>
